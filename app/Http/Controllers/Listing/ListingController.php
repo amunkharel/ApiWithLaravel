@@ -15,7 +15,7 @@ class ListingController extends ApiController
      */
     public function index()
     {
-        $listings = Listing::all();
+        $listings = Listing::where('approved', 'Y')->get();
         return $this->showAll($listings);
     }
 
