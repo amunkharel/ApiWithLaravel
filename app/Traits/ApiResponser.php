@@ -1,8 +1,9 @@
 <?php
 namespace App\Traits;
-use Illuminate\Support\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 trait ApiResponser
 {
 	private function successResponse($data, $code)
@@ -17,18 +18,17 @@ trait ApiResponser
 	{
 		if($collection->isEmpty())
 		{
-			return $this->successResponse(['data' => $collection], $code);
+			return $this->successResponse($collection, $code);
 		}
 		$transformer = $collection->first()->transformer;
 		$collection = $this->filterData($collection, $transformer);
 
 		$collection = $this->sortData($collection, $transformer);
 
-		$collection = $this->paginate($collection);
 
 		$collection = $this->transformData($collection, $transformer);
 
-		return $this->successResponse(['data' => $collection], $code);
+		return $this->successResponse($collection, $code);
 	}
 	protected function showOne(Model $instance, $code = 200)
 	{
@@ -58,27 +58,37 @@ trait ApiResponser
 		return $collection;
 	}
 
+
 	protected function filterData(Collection $collection, $transformer)
 	{
 		foreach (request()->query() as $query => $value) {
+			//var_dump(request()->query());
 			$attribute = $transformer::originalAttribute($query);
+
 			if (isset($attribute, $value)) {
-				$collection = $collection->where($attribute, $value);
+				if($attribute == 'rent_amount')
+				{
+					$collection = $collection->where($attribute, '<=', $value);
+				}
+
+				else if( $attribute == 'date_available')
+				{
+					$value = date($value);
+					$collection = $collection->where($attribute, '>=' , $value);
+				}
+
+				else
+				{
+					$collection = $collection->where($attribute, $value);
+				}
 			}
+
+
+
+
 		}
 		return $collection;
 	}
 
-	protected function paginate(Collection $collection)
-	{
-		$page = LengthAwarePaginator::resolveCurrentPage();
-		$perPage = 15;
-		$results = $collection->slice(($page - 1) * $perPage, $perPage)->values();
-		$paginated = new LengthAwarePaginator($results, $collection->count(), $perPage, $page, [
-			'path' => LengthAwarePaginator::resolveCurrentPath(),
-		]);
-		$paginated->appends(request()->all());
-		return $paginated;
-	}
 	
 }

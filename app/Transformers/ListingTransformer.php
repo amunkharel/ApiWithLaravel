@@ -59,7 +59,7 @@ class ListingTransformer extends TransformerAbstract
     public static function originalAttribute($index)
     {
         $attributes = [
-            'id' => '',
+            'id' => 'id',
             'rental_type' => 'rental_type',
             'last_name' => 'last_name',
             'first_name' => 'first_name',
