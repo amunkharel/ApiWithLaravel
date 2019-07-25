@@ -18,3 +18,5 @@ use Illuminate\Http\Request;
  */
 
 Route::resource('listings', 'Listing\ListingController' , ['only' => ['index', 'show']]);
+
+Route::name('addlisting')->post('addlisting', 'Listing\ListingController@store');
