@@ -18,7 +18,7 @@ trait ApiResponser
 	{
 		if($collection->isEmpty())
 		{
-			return $this->successResponse($collection, $code);
+			return $this->successResponse(['data' => $collection], $code);
 		}
 		$transformer = $collection->first()->transformer;
 		$collection = $this->filterData($collection, $transformer);
@@ -28,7 +28,7 @@ trait ApiResponser
 
 		$collection = $this->transformData($collection, $transformer);
 
-		return $this->successResponse($collection, $code);
+		return $this->successResponse(['data' => $collection], $code);
 	}
 	protected function showOne(Model $instance, $code = 200)
 	{
