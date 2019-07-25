@@ -30,11 +30,11 @@ trait ApiResponser
 
 		return $this->successResponse($collection, $code);
 	}
-	protected function showOne(Model $instance, $code = 200)
+	protected function showOne(Collection $collection, $code = 200)
 	{
-		$transformer = $instance->transformer;
-		$instance = $this->transformData($instance, $transformer);
-		return $this->successResponse($instance, $code);
+		$transformer = $collection->first()->transformer;
+		$collection = $this->transformData($collection, $transformer);
+		return $this->successResponse($collection, $code);
 	}
 
 	protected function showMessage($message, $code = 200)

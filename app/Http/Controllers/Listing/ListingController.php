@@ -48,7 +48,7 @@ class ListingController extends ApiController
      */
     public function show($id)
     {
-        $listing = Listing::find($id);
+        $listing = Listing::where('id', $id)->get();
         return $this->showOne($listing);
     }
 
