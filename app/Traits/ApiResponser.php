@@ -74,7 +74,7 @@ trait ApiResponser
 				else if( $attribute == 'date_available')
 				{
 					$value = date($value);
-					$collection = $collection->where($attribute, '>=' , $value);
+					$collection = $collection->where($attribute, '<=' , $value);
 				}
 
 				else
