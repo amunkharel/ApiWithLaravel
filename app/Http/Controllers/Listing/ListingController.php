@@ -43,7 +43,7 @@ class ListingController extends ApiController
     {
         $rules = [
             'rental_type' => 'required|max:20',
-            'last_name' => 'required|max:30',
+            'last_name' => 'max:30',
             'first_name' => 'required|max:30',
             'rental_address' => 'required|max:50',
             'phone' => 'required|max:25',
@@ -51,7 +51,7 @@ class ListingController extends ApiController
             'email_address' => 'email|max:60',
             'date_available' => 'date_format:Y-m-d|after:today',
             'rent_amount' => 'required|between:2,6',
-            'deposit' => 'between:2,6',
+            'deposit' => 'between:1,6',
             'lease' => 'max:1',
             'lease_duration' => 'max:20',
             'furnished' => 'max:1',
@@ -59,7 +59,7 @@ class ListingController extends ApiController
             'no_bedrooms' => 'max:5',
             'no_bathrooms' => 'max:5',
             'handicapped_access' => 'max:1',
-            'unm_distance' => 'max:10',
+            'unm_distance' => 'max:20',
             'bus_distance' => 'max:10',
             'pets' => 'max:1',
             'pets_deposit' => 'max:7',

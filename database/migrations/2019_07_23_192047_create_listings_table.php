@@ -16,7 +16,7 @@ class CreateListingsTable extends Migration
         Schema::create('listings', function (Blueprint $table) {
             $table->increments('id');
             $table->string('rental_type', 20);
-            $table->string('last_name', 30);
+            $table->string('last_name', 30)->nullable();
             $table->string('first_name', 30);
             $table->string('rental_address', 50);
             $table->string('phone', 25);
@@ -24,7 +24,7 @@ class CreateListingsTable extends Migration
             $table->string('email_address', 60)->nullable();
             $table->date('date_available');
             $table->decimal('rent_amount', 6, 2);
-            $table->decimal('deposit', 6, 2)->nullable();
+            $table->decimal('deposit', 6, 1)->nullable();
             $table->char('lease', 1)->nullable();
             $table->string('lease_duration', 20)->nullable();
             $table->char('furnished', 1)->nullable();
@@ -32,7 +32,7 @@ class CreateListingsTable extends Migration
             $table->string('no_bedrooms', 5)->nullable();
             $table->string('no_bathrooms', 5)->nullable();
             $table->char('handicapped_access', 1)->nullable();
-            $table->string('unm_distance', 10)->nullable();
+            $table->string('unm_distance', 20)->nullable();
             $table->string('bus_distance', 10)->nullable();
             $table->char('pets', 1)->nullable();
             $table->string('pets_deposit', 7)->nullable();
