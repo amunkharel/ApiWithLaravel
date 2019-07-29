@@ -15,7 +15,11 @@ class ListingController extends ApiController
      */
     public function index()
     {
+        //Gets all the listings which are approved by the admin of the site
         $listings = Listing::where('approved', 'Y')->get();
+
+        //showAll function located inside Traits folder and file ApiResponser.php
+        //Returns json response of a given model
         return $this->showAll($listings);
     }
 
@@ -96,6 +100,8 @@ class ListingController extends ApiController
     public function show($id)
     {
         $listing = Listing::where('id', $id)->get();
+        //showOne function located inside Traits Folder and ApiResponser.php file
+        //Shows one listing in a json format
         return $this->showOne($listing);
     }
 

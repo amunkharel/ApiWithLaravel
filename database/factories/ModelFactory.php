@@ -17,6 +17,9 @@ use App\Listing;
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 
+
+//creates a instance of Listing model with fake data to store in the database with ease in user's part
+
 $factory->define(Listing::class, function (Faker\Generator $faker) {
     return [
         'rental_type' => $faker->randomElement(['Apartment', 'House', 'Room', 'Duplex', 'Condo', 'Townhouse', 'Efficiency']),

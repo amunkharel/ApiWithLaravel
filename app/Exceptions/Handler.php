@@ -53,35 +53,46 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        //if finds a instance of ValidationException then goes to function that finds validation errors
+        // and returns a json response of validation errors
         if ($exception instanceof ValidationException) {
             return $this->convertValidationExceptionToResponse($exception, $request);
         }
 
+        //if does not find a given model, gives json error response
         if ($exception instanceof ModelNotFoundException) {
             $modelName = strtolower(class_basename($exception->getModel()));
             return $this->errorResponse("Does not exists any {$modelName} with the specified identificator", 404);
         }
 
+        // If finds exception while authenticating, then goes to a function that returns json
+        //authentication error
         if ($exception instanceof AuthenticationException) {
             return $this->unauthenticated($request, $exception);
         }
 
+        // Error while authorization handled
         if ($exception instanceof AuthorizationException) {
             return $this->errorResponse($exception->getMessage(), 403);
         }
 
+
+        //Error while method not allowed in routes handled
         if ($exception instanceof MethodNotAllowedHttpException) {
             return $this->errorResponse('The specified method for the request is invalid', 405);
         }
 
+        //Error if Http Nound Found Exception Handled
         if ($exception instanceof NotFoundHttpException) {
             return $this->errorResponse('The specified URL cannot be found', 404);
         }
 
+        //Error with HttpException Handled
         if ($exception instanceof HttpException) {
             return $this->errorResponse($exception->getMessage(), $exception->getStatusCode());
         }
 
+        //Error when made queryException handled
         if ($exception instanceof QueryException) {
             $errorCode = $exception->errorInfo[1];
             if ($errorCode == 1451) {
@@ -89,6 +100,10 @@ class Handler extends ExceptionHandler
             }
         }
 
+        //If the app is in development, it gives the unexpected exception but otherwise handles error 
+        // with a json response. 
+        //In env file, if we change APP_DEBUG to "false" then it is in production and handles all
+        //unexpected exceptions in the requests
         if (config('app.debug')) {
             return parent::render($request, $exception);            
         }

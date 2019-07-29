@@ -56,6 +56,12 @@ class ListingTransformer extends TransformerAbstract
         ];
     }
 
+    /**
+     * A returns the transformed attribute for a original attribute from the  database.
+     *
+     * @return array element
+     */
+
     public static function originalAttribute($index)
     {
         $attributes = [

@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-
+    	//Creates 50 listings in the database using modelfactory
         factory(Listing::class, 50)->create();
     }
 }

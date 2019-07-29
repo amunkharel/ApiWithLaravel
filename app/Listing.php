@@ -7,10 +7,17 @@ use App\Transformers\ListingTransformer;
 
 class Listing extends Model
 {
-
+    //initialize a transformer class for the model located at App\Transformers\ListingTransformer
 	public $transformer = ListingTransformer::class;
+
+    //table name for the model in the database
     protected $table = 'listings';
 
+    /**
+     * The attributes that should be filled in the db
+     *
+     * @var array
+     */
     protected $fillable = [
         'rental_type',
         'last_name',
@@ -53,7 +60,7 @@ class Listing extends Model
         'approved',
     ];
 
-        /**
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
