@@ -48,7 +48,7 @@ class ListingController extends ApiController
             'rental_address' => 'required|max:50',
             'phone' => 'required|max:25',
             'phone_2' => 'max:25',
-            'email_address' => 'email|max:60',
+            'email_address' => 'max:60',
             'date_available' => 'date_format:Y-m-d|after:today',
             'rent_amount' => 'required|between:2,6',
             'deposit' => 'between:1,6',

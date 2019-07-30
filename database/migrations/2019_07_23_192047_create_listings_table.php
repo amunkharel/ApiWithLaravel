@@ -24,7 +24,7 @@ class CreateListingsTable extends Migration
             $table->string('email_address', 60)->nullable();
             $table->date('date_available');
             $table->decimal('rent_amount', 6, 2);
-            $table->decimal('deposit', 6, 1)->nullable();
+            $table->decimal('deposit', 6, 0)->nullable();
             $table->char('lease', 1)->nullable();
             $table->string('lease_duration', 20)->nullable();
             $table->char('furnished', 1)->nullable();
