@@ -61,6 +61,6 @@ $factory->define(Listing::class, function (Faker\Generator $faker) {
         'additional_info' => 'Some Additional Info on the apartment',
         'date_received' => $faker->date($format = 'Y-m-d', $max = 'now'),
         'received_by' => 'Web Entry',
-        'approved' => $faker->randomElement(['Y', 'N']),
+        'approved' => $faker->randomElement(['Y', 'N']), 
     ];
 });
