@@ -1,6 +1,7 @@
 <?php
 
 use App\Listing;
+use App\ThrottleUser;
 
 
 /*
@@ -62,5 +63,14 @@ $factory->define(Listing::class, function (Faker\Generator $faker) {
         'date_received' => $faker->date($format = 'Y-m-d', $max = 'now'),
         'received_by' => 'Web Entry',
         'approved' => $faker->randomElement(['Y', 'N']), 
+    ];
+});
+
+
+
+$factory->define(ThrottleUser::class, function (Faker\Generator $faker) {
+    return [
+        'requests' => '0',
+        'hours' => '0.00', 
     ];
 });

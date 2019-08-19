@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Listing;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Controller;
 use App\Listing;
+use App\ThrottleUser;
 use Illuminate\Http\Request;
 
 class ListingController extends ApiController
@@ -86,8 +87,12 @@ class ListingController extends ApiController
         ];
         $this->validate($request, $rules);
         $newListing = Listing::create($request->all());
-        return response()->json(['success' => "New Listing Created Successfully"], 201);
 
+        $throttle = ThrottleUser::find(1);
+        $requests = $throttle->requests + 1;
+        $throttle->requests = $requests;
+        $throttle->save();
+        return response()->json(['success' => "New Listing Created Successfully"], 201);
 
     }
 
