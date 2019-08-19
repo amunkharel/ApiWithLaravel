@@ -49,7 +49,7 @@ class ListingController extends ApiController
             'phone' => 'required|max:25',
             'phone_2' => 'max:25',
             'email_address' => 'max:60',
-            'date_available' => 'date_format:Y-m-d|after:today',
+            'date_available' => 'required|date_format:Y-m-d|after:today',
             'rent_amount' => 'required|between:2,6',
             'deposit' => 'between:0,6',
             'lease' => 'max:1',

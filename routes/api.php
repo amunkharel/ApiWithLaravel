@@ -22,4 +22,4 @@ Route::resource('listings', 'Listing\ListingController' , ['only' => ['index', '
 /**
  * Store request for a listing
  */
-Route::name('addlisting')->post('addlisting', 'Listing\ListingController@store');
+Route::name('addlisting')->post('addlisting', 'Listing\ListingController@store')->middleware(['throttle:5']);
