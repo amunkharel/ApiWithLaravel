@@ -19,7 +19,7 @@ class CustomThrottleRequests extends ThrottleRequests
      */
     protected function buildResponse($key, $maxAttempts)
     {
-        $response = $this->errorResponse('Too Many Attempts.', 429);
+        $response = $this->errorResponse('Too Many Attempts. Please try again in a minute', 429);
 
         $retryAfter = $this->limiter->availableIn($key);
 
