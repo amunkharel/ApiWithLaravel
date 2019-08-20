@@ -1,6 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Listing;
+
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UnexpectedRequest;
+
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Controller;
 use App\Listing;
@@ -42,6 +46,19 @@ class ListingController extends ApiController
      */
     public function store(Request $request)
     {
+        $cc = explode(',', env('CC_EMAIL'));
+
+
+        $throttle = ThrottleUser::find(1);
+
+        if($throttle->requests > env("MAX_REQUEST_PER_DAY", "30"))
+        {
+            Mail::to(env("ADMIN_EMAIL", " "))->cc($cc)
+            ->send(new UnexpectedRequest());
+
+            return $this->errorResponse("Cannot handle the responses today. Please contact so and so", 429);
+        }
+
         $rules = [
             'rental_type' => 'required|max:20',
             'last_name' => 'max:30',
@@ -88,7 +105,7 @@ class ListingController extends ApiController
         $this->validate($request, $rules);
         $newListing = Listing::create($request->all());
 
-        $throttle = ThrottleUser::find(1);
+        
         $requests = $throttle->requests + 1;
         $throttle->requests = $requests;
         $throttle->save();
