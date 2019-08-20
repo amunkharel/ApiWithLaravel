@@ -17,7 +17,7 @@ class CreateThrottleUsersTable extends Migration
             $table->increments('id');
             $table->integer('requests')->unsigned()->default('0');
             $table->float('hours', 5, 2)->default('0.00');
-            
+            $table->timestamps();
         });
     }
 
