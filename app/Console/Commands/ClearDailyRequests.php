@@ -63,6 +63,7 @@ class ClearDailyRequests extends Command
         {
             $throttle->requests = '0';
             $throttle->hours = '0.00';
+            $throttle->email_sent = 'N';
         }
 
         $throttle->save();

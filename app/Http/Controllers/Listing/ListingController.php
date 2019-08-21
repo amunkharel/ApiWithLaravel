@@ -55,10 +55,17 @@ class ListingController extends ApiController
 
         if($throttle->requests > env("MAX_REQUEST_PER_DAY", "30"))
         {
-            Mail::to(env("ADMIN_EMAIL", " "))->cc($cc)
-            ->send(new UnexpectedRequest());
+            if($throttle->email_sent === 'N')
+            {
+                Mail::to(env("ADMIN_EMAIL", " "))->cc($cc)
+                ->send(new UnexpectedRequest());
 
-            return $this->errorResponse("Cannot handle the responses today. Please contact so and so", 429);
+                $throttle->email_sent = 'Y';
+
+                $throttle->save();
+            }
+
+            return $this->errorResponse("The Off Campus Housing Listing has reached capacity for the day.  Please contact the Student Activities Center at 505-277-4706 for assistance with your listing.", 429);
         }
 
         $rules = [

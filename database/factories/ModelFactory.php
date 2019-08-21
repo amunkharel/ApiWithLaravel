@@ -72,5 +72,6 @@ $factory->define(ThrottleUser::class, function (Faker\Generator $faker) {
     return [
         'requests' => '0',
         'hours' => '0.00', 
+        'email_sent' => 'N',
     ];
 });
