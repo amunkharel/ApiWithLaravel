@@ -69,9 +69,9 @@ class ListingController extends ApiController
         }
 
         $rules = [
-            'rental_type' => 'max:20',
+            'rental_type' => 'required|max:20',
             'last_name' => 'max:30',
-            'first_name' => 'max:30',
+            'first_name' => 'required|max:30',
             'rental_address' => 'required|max:50',
             'phone' => 'required|max:25',
             'phone_2' => 'max:25',
